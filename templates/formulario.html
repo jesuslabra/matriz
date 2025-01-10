@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Análisis Crediticio</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding-top: 50px;
+        }
+
+        h1 {
+            color: #4c4c4c;
+            text-align: center;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        /* Form container */
+        form {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 1200px; /* Aumenté el max-width */
+            box-sizing: border-box;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Cambié a 4 columnas */
+            gap: 20px;
+        }
+
+        label {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 12px;
+            border-radius: 5px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        select {
+            background-color: #f9f9f9;
+        }
+
+        /* Responsive design */
+        @media (max-width: 1200px) {
+            form {
+                grid-template-columns: repeat(3, 1fr); /* 3 columnas para pantallas medianas */
+            }
+        }
+
+        @media (max-width: 1024px) {
+            form {
+                grid-template-columns: repeat(2, 1fr); /* 2 columnas para pantallas más pequeñas */
+            }
+        }
+
+        @media (max-width: 768px) {
+            form {
+                grid-template-columns: 1fr; /* 1 columna para pantallas pequeñas */
+            }
+            h1 {
+                font-size: 24px;
+            }
+            input, select {
+                font-size: 16px;
+            }
+        }
+
+        /* Add some spacing between form elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        /* Centrar el botón */
+        .form-group-submit {
+            grid-column: span 4; /* El botón ocupa las 4 columnas */
+            text-align: center; /* Centramos el contenido */
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Formulario de Análisis Crediticio</h1>
+        <form action="/calcular_credito" method="post">
+            <div class="form-group">
+                <label for="monto_solicitado">Monto solicitado:</label>
+                <input type="number" id="monto_solicitado" name="monto_solicitado" required>
+            </div>
+            <div class="form-group">
+                <label for="ingreso_mensual">Ingreso mensual:</label>
+                <input type="number" id="ingreso_mensual" name="ingreso_mensual" required>
+            </div>
+            <div class="form-group">
+                <label for="num_dependientes">Número de dependientes:</label>
+                <input type="number" id="num_dependientes" name="num_dependientes" required>
+            </div>
+            <div class="form-group">
+                <label for="meses_prestamo">Meses del préstamo:</label>
+                <input type="number" id="meses_prestamo" name="meses_prestamo" required>
+            </div>
+            <div class="form-group">
+                <label for="tipo_vivienda">Tipo de vivienda:</label>
+                <select id="tipo_vivienda" name="tipo_vivienda">
+                    <option value="propia">Propia</option>
+                    <option value="inquilino">Inquilino</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="tipo_contrato">Tipo de contrato:</label>
+                <select id="tipo_contrato" name="tipo_contrato">
+                    <option value="Asalariado">Asalariado</option>
+                    <option value="Jubilado">Jubilado</option>
+                    <option value="Trabajador Independiente">Trabajador Independiente</option>
+                    <option value="Trabajador Eventual">Trabajador Eventual</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="edad">Edad:</label>
+                <input type="number" id="edad" name="edad" required>
+            </div>
+            <div class="form-group">
+                <label for="renta_mensual">Renta mensual (si aplica):</label>
+                <input type="number" id="renta_mensual" name="renta_mensual">
+            </div>
+            <div class="form-group">
+                <label for="gasto_por_dependiente">Gasto por dependiente:</label>
+                <input type="number" id="gasto_por_dependiente" name="gasto_por_dependiente" required>
+            </div>
+            <div class="form-group">
+                <label for="score_crediticio">Score crediticio:</label>
+                <input type="number" id="score_crediticio" name="score_crediticio" required>
+            </div>
+            <div class="form-group">
+                <label for="tiempo_empleo">Tiempo en empleo (meses):</label>
+                <input type="number" id="tiempo_empleo" name="tiempo_empleo" required>
+            </div>
+            <div class="form-group">
+                <label for="tiempo_residencia">Tiempo en residencia (meses):</label>
+                <input type="number" id="tiempo_residencia" name="tiempo_residencia" required>
+            </div>
+            <div class="form-group">
+                <label for="estado_civil">Estado civil:</label>
+                <select id="estado_civil" name="estado_civil">
+                    <option value="Soltero">Soltero</option>
+                    <option value="Casado">Casado</option>
+                    <option value="Divorciado">Divorciado</option>
+                    <option value="Viudo">Viudo</option>
+                    <option value="Jubilado">Jubilado</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="grado_estudios">Grado de estudios:</label>
+                <select id="grado_estudios" name="grado_estudios">
+                    <option value="Primaria">Primaria</option>
+                    <option value="Secundaria">Secundaria</option>
+                    <option value="Preparatoria">Preparatoria</option>
+                    <option value="Universitario">Universitario</option>
+                    <option value="Posgrado">Posgrado</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="tipo_ocupacion">Tipo de ocupación:</label>
+                <select id="tipo_ocupacion" name="tipo_ocupacion">
+                    <option value="Empleado">Empleado</option>
+                    <option value="Independiente">Independiente</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="frecuencia_pago">Frecuencia de pago:</label>
+                <select id="frecuencia_pago" name="frecuencia_pago">
+                    <option value="Mensual">Mensual</option>
+                    <option value="Quincenal">Quincenal</option>
+                </select>
+            </div>
+            <div class="form-group-submit">
+                <input type="submit" value="Calcular Crédito">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
