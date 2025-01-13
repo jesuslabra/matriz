@@ -280,7 +280,10 @@ def calcular_credito():
         </style>
     </head>
     <body>
-        <div class="container">
+   
+        <div class="container"> <div style="text-align: left; margin-bottom: 20px;">
+            <img src="static/retina-logo.png" alt="Logo" style="width: 150px; height: auto;">
+        </div>
             <h2>Resultado del Análisis de Crédito</h2>
             <div class="result">
                 <p>El porcentaje de endeudamiento es: <span class="highlight">{porcentaje:.2f}%</span></p>
@@ -291,7 +294,7 @@ def calcular_credito():
                 <p>Decisión: {decision} <span class="emoji">{emoji}</span></p>
             </div>
             <div class="footer">
-                <p>¡Gracias por utilizar nuestro sistema de análisis crediticio!</p>
+                <p>¡Gracias por utilizar nuestro sistema de análisis crediticio Finalia!</p>
             </div>
         </div>
     </body>
@@ -301,3 +304,4 @@ def calcular_credito():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
