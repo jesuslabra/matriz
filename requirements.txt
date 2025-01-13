@@ -27,3 +27,4 @@ gunicorn
 Flask
 pandas
 scikit-learn
+matplotlib
