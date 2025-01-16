@@ -209,8 +209,8 @@ def calcular_credito():
                 <p>Categoría de riesgo: <span class="highlight">{categoria_riesgo}</span></p>
                 <!--<p>Predicción de incumplimiento: <span class="highlight">{prediccion_incumplimiento:.2f}%</span></p>-->
                 <p>Score final: <span class="highlight">{score_final:.2f}</span></p>
-                <p>Capacidad de pago: <span class="highlight">{capacidad_pago:.2f}</span></p>
-                <p>Capacidad de pago en porcentaje: <span class="highlight">{porcentaje_capacidad_pago:.2f}%</span></p>
+                 <!--<p>Capacidad de pago: <span class="highlight">{capacidad_pago:.2f}</span></p>-->
+                <p>Capacidad de pago: <span class="highlight">{porcentaje_capacidad_pago:.2f}%</span></p>
             </div>
             <div class="decision">
                 <p>Decisión: {decision} <span class="emoji">{emoji}</span></p>
