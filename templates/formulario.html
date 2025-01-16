@@ -32,11 +32,11 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             width: 100%;
-            max-width: 1200px; /* Aumenté el max-width */
+            max-width: 1200px;
             box-sizing: border-box;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* Cambié a 4 columnas */
+            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
         }
 
@@ -78,19 +78,19 @@
         /* Responsive design */
         @media (max-width: 1200px) {
             form {
-                grid-template-columns: repeat(3, 1fr); /* 3 columnas para pantallas medianas */
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
         @media (max-width: 1024px) {
             form {
-                grid-template-columns: repeat(2, 1fr); /* 2 columnas para pantallas más pequeñas */
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 768px) {
             form {
-                grid-template-columns: 1fr; /* 1 columna para pantallas pequeñas */
+                grid-template-columns: 1fr;
             }
             h1 {
                 font-size: 24px;
@@ -107,14 +107,14 @@
 
         /* Centrar el botón */
         .form-group-submit {
-            grid-column: span 4; /* El botón ocupa las 4 columnas */
-            text-align: center; /* Centramos el contenido */
+            grid-column: span 4;
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <div>
-	<div style="text-align: left; margin-bottom: 20px;">
+        <div style="text-align: left; margin-bottom: 20px;">
           <img src="{{ url_for('static', filename='retina-logo.png') }}" alt="Logo" style="width: 150px; height: auto;">
 
         </div>
@@ -132,13 +132,10 @@
                 <label for="meses_prestamo">Meses del préstamo:</label>
                 <input type="number" id="meses_prestamo" name="meses_prestamo" required>
             </div>
-			  <div class="form-group">
+            <div class="form-group">
                 <label for="score_crediticio">Score crediticio:</label>
                 <input type="number" id="score_crediticio" name="score_crediticio" required>
             </div>
-			 
-			 
-           
             <div class="form-group">
                 <label for="tipo_contrato">Tipo de contrato:</label>
                 <select id="tipo_contrato" name="tipo_contrato">
@@ -148,19 +145,18 @@
                     <option value="Trabajador Eventual">Trabajador Eventual</option>
                 </select>
             </div>
-			 <div class="form-group">
+            <div class="form-group">
                 <label for="tipo_vivienda">Tipo de vivienda:</label>
                 <select id="tipo_vivienda" name="tipo_vivienda">
                     <option value="propia">Propia</option>
                     <option value="inquilino">Inquilino</option>
                 </select>
             </div>
-          
             <div class="form-group">
                 <label for="renta_mensual">Renta mensual (si aplica):</label>
                 <input type="number" id="renta_mensual" name="renta_mensual">
             </div>
-			 <div class="form-group">
+            <div class="form-group">
                 <label for="num_dependientes">Número de dependientes:</label>
                 <input type="number" id="num_dependientes" name="num_dependientes" required>
             </div>
@@ -168,7 +164,7 @@
                 <label for="gasto_por_dependiente">Gasto por dependiente:</label>
                 <input type="number" id="gasto_por_dependiente" name="gasto_por_dependiente" required>
             </div>
-          <div class="form-group">
+            <div class="form-group">
                 <label for="edad">Edad:</label>
                 <input type="number" id="edad" name="edad" required>
             </div>
@@ -184,10 +180,7 @@
                 <label for="estado_civil">Estado civil:</label>
                 <select id="estado_civil" name="estado_civil">
                     <option value="Soltero">Soltero</option>
-                    <option value="Casado">Casado</option>
-                    <option value="Divorciado">Divorciado</option>
-                    <option value="Viudo">Viudo</option>
-                    <option value="Jubilado">Jubilado</option>
+                    <option value="Casado">Casado</option>               
                 </select>
             </div>
             <div class="form-group">
@@ -212,6 +205,7 @@
                 <select id="frecuencia_pago" name="frecuencia_pago">
                     <option value="Mensual">Mensual</option>
                     <option value="Quincenal">Quincenal</option>
+                    <option value="Semanal">Semanal</option>
                 </select>
             </div>
             <div class="form-group-submit">
@@ -221,4 +215,3 @@
     </div>
 </body>
 </html>
-
