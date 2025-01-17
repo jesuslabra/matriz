@@ -1,13 +1,14 @@
 from flask import Flask, render_template, request
 import pandas as pd
 import joblib
+import pickle
 
 # Inicialización de la aplicación Flask
 app = Flask(__name__)
 
 # Cargar el modelo previamente guardado
 regressor = joblib.load('modelo_crediticio.pkl')
-
+X_train = joblib.load('X_train.pkl')
 # Función para calcular el porcentaje de endeudamiento
 def calcular_porcentaje_endeudamiento(monto_solicitado, ingreso_mensual, num_dependientes, meses_prestamo, tipo_vivienda, tipo_contrato, edad, renta_mensual, gasto_por_dependiente):
     # Lógica para calcular la mensualidad y el porcentaje de endeudamiento
@@ -93,9 +94,9 @@ def calcular_credito():
     })
 
     # Alinear las columnas de input_data con las del modelo
-    input_data = input_data.reindex(columns=regressor.feature_names_in_, fill_value=0)
+    input_data = input_data.reindex(columns=X_train.columns, fill_value=0)
 
-    # Realizar la predicción
+    # Realizar la predicción con el modelo cargado
     prediccion = regressor.predict(input_data)
     prediccion_incumplimiento = prediccion[0] * 100
 
@@ -110,7 +111,7 @@ def calcular_credito():
 
     # Calcular el score final
     categoria_riesgo = clasificar_riesgo(int(request.form.get('score_crediticio', 633)), porcentaje)
-    score_final = calcular_score_final(porcentaje, categoria_riesgo, prediccion_incumplimiento, 12, 12, 633)
+    score_final = calcular_score_final(porcentaje, categoria_riesgo, prediccion_incumplimiento, 12, 12, int(request.form.get('score_crediticio', 633)))
 
     # Calcular la capacidad de pago en porcentaje
     porcentaje_capacidad_pago = (capacidad_pago / ingreso_mensual) * 100
@@ -118,12 +119,19 @@ def calcular_credito():
     # Decidir si el crédito es aprobado o rechazado
     if porcentaje_capacidad_pago < 30:
         decision = "Rechazado"
+        mensaje_rechazo = "El crédito ha sido rechazado debido a una capacidad de pago menor al 30%."
+        emoji = "😞"
+        color = "#e74c3c"
+    elif score_final < 600:
+        decision = "Rechazado"
+        mensaje_rechazo = "El crédito ha sido rechazado debido a un score final menor a 600."
         emoji = "😞"
         color = "#e74c3c"
     else:
-        decision = "Aprobado" if score_final >= 60 else "Rechazado"
-        emoji = "😊" if decision == "Aprobado" else "😞"
-        color = "#27ae60" if decision == "Aprobado" else "#e74c3c"
+        decision = "Aprobado"
+        mensaje_aprobado = "El crédito ha sido aprobado. ¡Felicidades!"
+        emoji = "😊"
+        color = "#27ae60"
 
     return f"""
     <html lang="es">
@@ -198,22 +206,25 @@ def calcular_credito():
         </style>
     </head>
     <body>
-        <div class="container"> 
+        <div class="container">
             <div style="text-align: left; margin-bottom: 20px;">
                 <img src="../static/retina-logo.png" alt="Logo" style="width: 150px; height: auto;">
             </div>
             <h2>Resultado del Análisis de Crédito</h2>
             <div class="result">
-                <p>Mensualidad aproximada: <span class="highlight">{mensualidad:.2f}</span></p>
+                 <!--<p>Mensualidad aproximada: <span class="highlight">{mensualidad:.2f}</span></p>-->
                 <p>Porcentaje de endeudamiento: <span class="highlight">{porcentaje:.2f}%</span></p>
                 <p>Categoría de riesgo: <span class="highlight">{categoria_riesgo}</span></p>
                 <!--<p>Predicción de incumplimiento: <span class="highlight">{prediccion_incumplimiento:.2f}%</span></p>-->
                 <p>Score final: <span class="highlight">{score_final:.2f}</span></p>
                  <!--<p>Capacidad de pago: <span class="highlight">{capacidad_pago:.2f}</span></p>-->
-                <p>Capacidad de pago: <span class="highlight">{porcentaje_capacidad_pago:.2f}%</span></p>
+                <p>Capacidad de pago en porcentaje: <span class="highlight">{porcentaje_capacidad_pago:.2f}%</span></p>
             </div>
             <div class="decision">
                 <p>Decisión: {decision} <span class="emoji">{emoji}</span></p>
+                <p>
+                    {mensaje_rechazo if decision == "Rechazado" else mensaje_aprobado}
+                </p>
             </div>
             <div class="footer">
                 <p>¡Gracias por utilizar nuestro sistema de análisis crediticio Finalia!</p>
