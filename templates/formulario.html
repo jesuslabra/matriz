@@ -123,8 +123,8 @@
 			<a href="{{ url_for('logout') }}" style="text-decoration: none; background-color: #e74c3c; color: white; padding: 10px 15px; border-radius: 5px;">Cerrar Sesión</a>
 		</div>
         <h1>Formulario de Análisis Crediticio</h1>
-        <form action="/calcular_credito" method="post">
-		 <div class="form-group">
+        <form action="{{ url_for('calcular_credito') }}" method="post">
+		    <div class="form-group">
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" required>
             </div>
@@ -137,17 +137,28 @@
                 <input type="text" id="apellido_materno" name="apellido_materno" required>
             </div>
             <div class="form-group">
-                <label for="monto_solicitado">Monto solicitado:</label>
+			 <label for="edad">Edad:</label>
+                <input type="number" id="edad" name="edad" required>
+                
+            </div>
+            <div class="form-group">
+			<label for="monto_solicitado">Monto solicitado:</label>
                 <input type="number" id="monto_solicitado" name="monto_solicitado" required>
             </div>
-            <div class="form-group">
-                <label for="ingreso_mensual">Ingreso mensual:</label>
-                <input type="number" id="ingreso_mensual" name="ingreso_mensual" required>
-            </div>
-            <div class="form-group">
+             <div class="form-group">
                 <label for="meses_prestamo">Meses del préstamo:</label>
                 <input type="number" id="meses_prestamo" name="meses_prestamo" required>
             </div>
+			 <div class="form-group">
+			 <label for="pago_mensualidad">Pago Mensualidad:</label>
+                <input type="number" id="pago_mensualidad" name="pago_mensualidad" required>
+               
+			 </div>
+			  <div class="form-group">
+			  <label for="ingreso_mensual">Ingreso mensual:</label>
+                <input type="number" id="ingreso_mensual" name="ingreso_mensual" required>
+			 </div>
+			 
             <div class="form-group">
                 <label for="score_crediticio">Score crediticio:</label>
                 <input type="number" id="score_crediticio" name="score_crediticio" required>
@@ -169,20 +180,12 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="renta_mensual">Renta mensual (si aplica):</label>
+                <label for="renta_mensual">Renta mensual (si aplica, si no, pon 0):</label>
                 <input type="number" id="renta_mensual" name="renta_mensual">
             </div>
-            <div class="form-group">
-                <label for="num_dependientes">Número de dependientes:</label>
-                <input type="number" id="num_dependientes" name="num_dependientes">
-            </div>
-            <div class="form-group">
-                <label for="gasto_por_dependiente">Gasto por dependiente:</label>
-                <input type="number" id="gasto_por_dependiente" name="gasto_por_dependiente" >
-            </div>
-            <div class="form-group">
-                <label for="edad">Edad:</label>
-                <input type="number" id="edad" name="edad" required>
+             <div class="form-group">
+                <label for="gasto_mensual">Gasto Mensual:</label>
+                <input type="number" id="gasto_mensual" name="gasto_mensual" >
             </div>
             <div class="form-group">
                 <label for="tiempo_empleo">Tiempo en empleo (meses):</label>
